@@ -11,7 +11,7 @@
   <artifactId>SampleRest</artifactId>
   <packaging>bwear</packaging>
   <properties>
-    <pcf.property.file>pcfdev.properties</pcf.property.file>
+    <pcf.property.file>/home/tibco/TonyWorkspace/SampleRest/pcfdev.properties</pcf.property.file>
     <k8s.property.file>k8s-dev.properties</k8s.property.file>
     <docker.property.file>docker-dev.properties</docker.property.file>
   </properties>
@@ -41,6 +41,36 @@
             <file>${docker.property.file}</file>
             <file>${k8s.property.file}</file>
           </files>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.cloudfoundry</groupId>
+        <artifactId>cf-maven-plugin</artifactId>
+        <version>1.1.3</version>
+        <configuration>
+          <server>${bwpcf.server}</server>
+          <target>${bwpcf.target}</target>
+          <trustSelfSignedCerts>${bwpcf.trustSelfSignedCerts}</trustSelfSignedCerts>
+          <org>${bwpcf.org}</org>
+          <space>${bwpcf.space}</space>
+          <appname>${bwpcf.appName}</appname>
+          <url>${bwpcf.url}</url>
+          <instances>${bwpcf.instances}</instances>
+          <skip>false</skip>
+          <memory>${bwpcf.memory}</memory>
+          <buildpack>${bwpcf.buildpack}</buildpack>
+          <env>
+            <APP_CONFIG_PROFILE>${bwpcf.env.0}</APP_CONFIG_PROFILE>
+            <BW_PROFILE>${bwpcf.env.1}</BW_PROFILE>
+          </env>
+          <services>
+            <service>
+              <name>SCCService</name>
+              <label>p-config-server</label>
+              <version></version>
+              <plan>standard</plan>
+            </service>
+          </services>
         </configuration>
       </plugin>
       <plugin>
@@ -82,32 +112,6 @@
         <version>2.2.102</version>
         <configuration>
           <skip>false</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.cloudfoundry</groupId>
-        <artifactId>cf-maven-plugin</artifactId>
-        <version>1.1.3</version>
-        <configuration>
-          <server>${bwpcf.server}</server>
-          <target>${bwpcf.target}</target>
-          <trustSelfSignedCerts>${bwpcf.trustSelfSignedCerts}</trustSelfSignedCerts>
-          <org>${bwpcf.org}</org>
-          <space>${bwpcf.space}</space>
-          <appname>${bwpcf.appName}</appname>
-          <url>${bwpcf.url}</url>
-          <instances>${bwpcf.instances}</instances>
-          <skip>false</skip>
-          <memory>${bwpcf.memory}</memory>
-          <buildpack>${bwpcf.buildpack}</buildpack>
-          <services>
-            <service>
-              <name>SCCService</name>
-              <label>p-config-server</label>
-              <version></version>
-              <plan>standard</plan>
-            </service>
-          </services>
         </configuration>
       </plugin>
     </plugins>
